@@ -1,5 +1,11 @@
 import React, { createContext, FC, useContext, useEffect, useState } from 'react';
-import { getAuth, signInWithEmailAndPassword, browserSessionPersistence, signOut } from 'firebase/auth';
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  browserSessionPersistence,
+  signOut,
+} from 'firebase/auth';
 import { TAuthContext } from './types';
 import { FirebaseApp } from 'firebase/app';
 type TProps = {
@@ -10,6 +16,7 @@ type TProps = {
 export const authContext = createContext<TAuthContext>({
   isAuthenticated: null,
   loginWithEmailAndPassword: () => Promise.reject({}),
+  registerUserWithEmailAndPassword: () => Promise.reject({}),
   logout: () => void 0,
 });
 
@@ -50,6 +57,16 @@ export const AuthContextProvider: FC<TProps> = (props) => {
       });
   };
 
+  const registerUserWithEmailAndPassword = (email: string, password: string) => {
+    return createUserWithEmailAndPassword(auth, email, password)
+      .then((result) => {
+        return result;
+      })
+      .catch((error) => {
+        throw error;
+      });
+  };
+
   const logout = () => signOut(auth);
 
   return (
@@ -59,6 +76,7 @@ export const AuthContextProvider: FC<TProps> = (props) => {
         user,
         loginWithEmailAndPassword,
         logout,
+        registerUserWithEmailAndPassword,
       }}
     >
       {props.children}

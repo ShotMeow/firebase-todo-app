@@ -6,5 +6,6 @@ export type TAuthContext = {
   isAuthenticated: boolean | null;
   user?: any;
   loginWithEmailAndPassword: (email: string, password: string) => Promise<TLoginWithEmailAndPasswordResult>;
+  registerUserWithEmailAndPassword: (email: string, password: string) => Promise<TLoginWithEmailAndPasswordResult>;
   logout: () => void;
 };
