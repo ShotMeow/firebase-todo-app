@@ -8,7 +8,9 @@ const SignIn: FC = () => {
   const [error, setError] = useState<string>('');
 
   const navigate = useNavigate();
+
   const { loginWithEmailAndPassword } = useAuthContext();
+
   const handleSubmit = (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
     loginWithEmailAndPassword(email, password)
@@ -17,6 +19,11 @@ const SignIn: FC = () => {
         setError('Неверный логин или пароль');
       });
   };
+
+  const handleSignUp = () => {
+    navigate('/sign-up');
+  };
+
   return (
     <div>
       <h1 className="text-2xl font-bold text-center mb-6">Авторизация</h1>
@@ -40,10 +47,17 @@ const SignIn: FC = () => {
         {error && <p className="text-red-600">{error}</p>}
         <button
           onClick={(event) => handleSubmit(event)}
-          className="bg-rose-600 py-2 hover:bg-rose-700 rounded-lg"
+          className="bg-rose-600 py-2 transition-all hover:bg-rose-700 rounded-lg"
           type="submit"
         >
           Авторизоваться
+        </button>
+        <button
+          onClick={() => handleSignUp()}
+          type="button"
+          className="bg-gray-800 transition-all py-2 hover:bg-gray-700 rounded-lg"
+        >
+          Зарегистрироваться
         </button>
       </form>
     </div>

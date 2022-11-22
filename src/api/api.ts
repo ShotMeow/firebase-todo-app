@@ -1,6 +1,6 @@
 import { initializeApp, FirebaseApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { collection, doc, addDoc, getDocs, getFirestore, deleteDoc } from '@firebase/firestore';
+import { collection, doc, addDoc, getDocs, getFirestore, deleteDoc, updateDoc } from '@firebase/firestore';
 import { ITodo } from './types';
 
 export const initializeAPI = (): FirebaseApp => {
@@ -60,6 +60,19 @@ export const removeTodoFromUserCollection = async (userId: string, id: string) =
   try {
     const docRef = doc(doc(db, 'users', userId), 'todos', id);
     await deleteDoc(docRef);
+  } catch (error) {
+    console.log(`Error: ${error}`);
+  }
+};
+
+export const updateTodoFromUserCollection = async (userId: string, id: string, value: string) => {
+  const db = getFirestore();
+
+  try {
+    const docRef = doc(doc(db, 'users', userId), 'todos', id);
+    await updateDoc(docRef, {
+      name: value,
+    });
   } catch (error) {
     console.log(`Error: ${error}`);
   }

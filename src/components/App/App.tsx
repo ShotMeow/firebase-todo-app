@@ -5,6 +5,7 @@ import Home from '../../pages/Home/Home';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import { AuthContextProvider } from '../../features/auth/AuthContextProvider';
 import { initializeAPI } from '../../api/api';
+import SignUp from '../../pages/SignUp/SignUp';
 
 const firebaseApp = initializeAPI();
 
@@ -15,6 +16,7 @@ const App: FC = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/sign-in" element={<SignIn />} />
+            <Route path="/sign-up" element={<SignUp />} />
             <Route element={<PrivateRoute />}>
               <Route path="/" element={<Home />} />
             </Route>
