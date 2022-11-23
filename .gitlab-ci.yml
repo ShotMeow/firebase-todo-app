@@ -1,0 +1,14 @@
+image: node:16.17.0
+
+pages:
+  stage: deploy
+  before_script:
+    - npm install
+  script:
+    - npm run build
+    - cp -r dist public
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
