@@ -9,6 +9,6 @@ pages:
     - cp -r build public
   artifacts:
     paths:
-      - public/build
+      - public
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
